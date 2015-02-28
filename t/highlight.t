@@ -1,6 +1,7 @@
 use Test;
 
 use Grammar::Highlighter;
+use Grammar::Highlighter::Terminal;
 
 grammar Foo {
     rule TOP {
@@ -25,7 +26,7 @@ grammar Foo {
 }
 
 my $parser = Foo.new;
-my $highlighter = Grammar::Highlighter;
+my $highlighter = Grammar::Highlighter.new(:formatter(Grammar::Highlighter::Terminal.new));
 
 is($parser.parse(q:heredoc/INPUT/, :actions($highlighter)).ast.Str, qq:heredoc/OUTPUT/.chomp);
     Foo Baz;

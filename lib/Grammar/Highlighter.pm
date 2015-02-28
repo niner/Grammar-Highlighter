@@ -1,7 +1,6 @@
 class Grammar::Highlighter;
-use Term::ANSIColor;
 
-my @colors = < bold underline inverse black red green yellow blue magenta cyan white default on_black on_red on_green on_yellow on_blue on_magenta on_cyan on_white on_default >;
+has $.formatter;
 
 class Highlighted {
     has Str $.orig;
@@ -9,6 +8,7 @@ class Highlighted {
     has Int $.to;
     has @.children;
     has $.color;
+    has $.formatter;
 
     method Str() {
         if @.children {
@@ -16,11 +16,11 @@ class Highlighted {
             my $last-sub  = @.children>>.to.max;
             my $children  = @.children>>.Str.join('');
             if $first-sub > 0 or $last-sub > 0 {
-                return colored(
+                return $.formatter.colored(
                     $.orig.substr($.from, $first-sub)
                         ~ $children
                         ~ $.orig.substr($last-sub, $.to - $last-sub),
-                    @colors[$.color]
+                    $.color
                 );
             }
             else {
@@ -28,9 +28,9 @@ class Highlighted {
             }
         }
         else {
-            return colored(
+            return $.formatter.colored(
                 $.orig.substr($.from, $.to - $.from),
-                @colors[$.color]
+                $.color
             );
         }
     }
@@ -46,11 +46,12 @@ my %known;
             }
             else {
                 make Highlighted.new(
-                    orig => $/.orig,
-                    from => $/.from,
-                    to => $/.to,
-                    children => $/.hash.values.map({$_ ~~ Positional ?? $_>>.ast !! $_.ast}),
-                    color => %known{$name} //= $current++,
+                    orig      => $/.orig,
+                    from      => $/.from,
+                    to        => $/.to,
+                    children  => $/.hash.values.map({$_ ~~ Positional ?? $_>>.ast !! $_.ast}),
+                    color     => %known{$name} //= $current++,
+                    formatter => $.formatter,
                 );
             }
         }
