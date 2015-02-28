@@ -11,7 +11,7 @@ sub escape(Str $code) {
 }
 
 method colored(Str $pre, Str $children, Str $post, Int $color) {
-    return qq!<span style="color: {@colors[$color % @colors.elems]};">{escape $pre}{$children // ''}{escape $post // ''}</span>!;
+    return qq!<span style="color: {@colors[$color % *]};">{escape $pre}{$children // ''}{escape $post // ''}</span>!;
 }
 
 # vim: ft=perl6

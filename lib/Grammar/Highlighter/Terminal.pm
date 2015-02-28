@@ -6,7 +6,7 @@ my @colors = < bold underline inverse black red green yellow blue magenta cyan w
 
 method colored(Str $pre, Str $children, Str $post, Int $color) {
     my $code = ($pre, $children, $post).map({$_ // ''}).join('');
-    return colored($code, @colors[$color % @colors.elems]);
+    return colored($code, @colors[$color % *]);
 }
 
 # vim: ft=perl6
