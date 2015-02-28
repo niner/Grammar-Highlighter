@@ -17,9 +17,9 @@ class Highlighted {
             my $children  = @.children>>.Str.join('');
             if $first-sub > 0 or $last-sub > 0 {
                 return $.formatter.colored(
-                    $.orig.substr($.from, $first-sub)
-                        ~ $children
-                        ~ $.orig.substr($last-sub, $.to - $last-sub),
+                    $.orig.substr($.from, $first-sub),
+                    $children,
+                    $.orig.substr($last-sub, $.to - $last-sub),
                     $.color
                 );
             }
@@ -30,6 +30,8 @@ class Highlighted {
         else {
             return $.formatter.colored(
                 $.orig.substr($.from, $.to - $.from),
+                Str,
+                Str,
                 $.color
             );
         }
