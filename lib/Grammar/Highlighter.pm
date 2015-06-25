@@ -1,4 +1,4 @@
-class Grammar::Highlighter;
+unit class Grammar::Highlighter;
 
 has $.formatter;
 

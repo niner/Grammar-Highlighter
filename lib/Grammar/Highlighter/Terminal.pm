@@ -1,4 +1,4 @@
-class Grammar::Highlighter::Terminal;
+unit class Grammar::Highlighter::Terminal;
 
 use Term::ANSIColor;
 

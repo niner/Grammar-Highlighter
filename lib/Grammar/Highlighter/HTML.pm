@@ -1,4 +1,4 @@
-class Grammar::Highlighter::HTML;
+unit class Grammar::Highlighter::HTML;
 
 use Term::ANSIColor;
 
