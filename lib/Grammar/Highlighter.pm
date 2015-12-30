@@ -14,7 +14,7 @@ class Highlighted {
         if @.children {
             my $first-sub = @.children>>.from.min - $.from;
             my $last-sub  = @.children>>.to.max;
-            my $children  = @.children>>.Str.join('');
+            my $children  = @.children.map(*.Str).join('');
             if $first-sub > 0 or $last-sub > 0 {
                 return $.formatter.colored(
                     $.orig.substr($.from, $first-sub),
@@ -51,7 +51,7 @@ my %known;
                     orig      => $/.orig,
                     from      => $/.from,
                     to        => $/.to,
-                    children  => $/.hash.values.map({$_ ~~ Positional ?? $_>>.ast !! $_.ast}),
+                    children  => $/.hash.values.map({$_ ~~ Positional ?? |$_.map: *.ast !! $_.ast}),
                     color     => %known{$name} //= $current++,
                     formatter => $.formatter,
                 );

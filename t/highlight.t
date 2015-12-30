@@ -53,6 +53,6 @@ is($parser.parse(q:heredoc/INPUT/, :actions($html)).ast.Str, q:heredoc/OUTPUT/.c
     </span></span>
     OUTPUT
 
-done;
+done-testing;
 
 # vim: ft=perl6
