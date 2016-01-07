@@ -1,6 +1,6 @@
 unit class Grammar::Highlighter::HTML;
 
-use Term::ANSIColor;
+use Terminal::ANSIColor;
 
 my @colors = < aqua blue fuchsia gray green lime maroon navy olive purple red silver teal yellow >;
 
